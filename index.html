@@ -1,77 +1,148 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="description"
+      content="Stay updated! Join 60,000+ product managers receiving monthly updates on product discovery, measuring success, and much more."
+    />
+    <link
+      rel="icon"
+      type="image/png"
+      sizes="32x32"
+      href="./assets/images/favicon-32x32.png"
+    />
+    <title>
+      Frontend Mentor | Newsletter sign-up form with success message
+    </title>
+    <link rel="stylesheet" href="./css/style.css" />
+  </head>
 
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="icon" type="image/png" sizes="32x32" href="./assets/images/favicon-32x32.png">
-  <title>Frontend Mentor | Newsletter sign-up form with success message</title>
-  <link rel="stylesheet" href="./css/style.css">
-</head>
+  <body>
+    <main class="container">
+      <!-- Sign-up form section -->
+      <section
+        class="signup-section"
+        id="signupSection"
+        aria-labelledby="signup-heading"
+      >
+        <div class="content">
+          <h1 id="signup-heading">Stay updated!</h1>
 
-<body>
-  <main class="container">
+          <p>Join 60,000+ product managers receiving monthly updates on:</p>
 
-    <!-- Sign-up form section -->
-    <section class="signup-section" id="signupSection">
-      <div class="content">
-        <h1>Stay updated!</h1>
+          <ul class="features-list" role="list">
+            <li>
+              <img
+                src="./assets/images/icon-list.svg"
+                alt=""
+                aria-hidden="true"
+              />
+              Product discovery and building what matters
+            </li>
+            <li>
+              <img
+                src="./assets/images/icon-list.svg"
+                alt=""
+                aria-hidden="true"
+              />
+              Measuring to ensure updates are a success
+            </li>
+            <li>
+              <img
+                src="./assets/images/icon-list.svg"
+                alt=""
+                aria-hidden="true"
+              />
+              And much more!
+            </li>
+          </ul>
 
-        <p>Join 60,000+ product managers receiving monthly updates on:</p>
+          <form
+            id="signupForm"
+            novalidate
+            aria-label="Newsletter subscription form"
+          >
+            <div>
+              <label for="email">Email address</label>
+              <span id="emailError" role="alert" aria-live="polite"></span>
+            </div>
+            <input
+              type="email"
+              id="email"
+              name="email"
+              placeholder="email@company.com"
+              required
+              autocomplete="email"
+              aria-describedby="emailError"
+              aria-required="true"
+            />
+            <button type="submit" id="subscribeBtn">
+              Subscribe to monthly newsletter
+            </button>
+          </form>
+        </div>
 
-        <ul class="features-list">
-          <li>
-            <img src="./assets/images/icon-list.svg" alt="">
-            Product discovery and building what matters
-          </li>
-          <li>
-            <img src="./assets/images/icon-list.svg" alt="">
-            Measuring to ensure updates are a success
-          </li>
-          <li>
-            <img src="./assets/images/icon-list.svg" alt="">
-            And much more!
-          </li>
-        </ul>
+        <div
+          class="illustration"
+          role="img"
+          aria-label="Newsletter illustration"
+        >
+          <img
+            src="./assets/images/illustration-sign-up-desktop.svg"
+            alt=""
+            class="desktop-img"
+            aria-hidden="true"
+          />
+          <img
+            src="./assets/images/illustration-sign-up-mobile.svg"
+            alt=""
+            class="mobile-img"
+            aria-hidden="true"
+          />
+        </div>
+      </section>
 
-        <form id="signupForm" novalidate>
-          <div>
-            <label for="email">Email address</label>
-            <span id="emailError"></span>
-          </div>
-          <input type="email" id="email" placeholder="email@company.com" required>
-          <button type="submit">Subscribe to monthly newsletter</button>
-        </form>
+      <!-- Success message section -->
+      <section
+        class="success-section"
+        id="successSection"
+        hidden
+        aria-labelledby="success-heading"
+        aria-live="polite"
+      >
+        <img
+          src="./assets/images/icon-success.svg"
+          alt="Success checkmark"
+          width="64"
+          height="64"
+        />
+        <h2 id="success-heading">Thanks for subscribing!</h2>
+        <p>
+          A confirmation email has been sent to
+          <strong id="userEmail"></strong>. Please open it and click the button
+          inside to confirm your subscription.
+        </p>
+        <button id="dismissBtn" type="button">Dismiss message</button>
+      </section>
+    </main>
+
+    <footer>
+      <div class="attribution">
+        Challenge by
+        <a
+          href="https://www.frontendmentor.io?ref=challenge"
+          target="_blank"
+          rel="noopener noreferrer"
+          >Frontend Mentor</a
+        >. Coded by
+        <a href="#" target="_blank" rel="noopener noreferrer"
+          >MUGISHO NTASHARA MERCI</a
+        >.
       </div>
+    </footer>
 
-      <div class="illustration">
-        <img src="./assets/images/illustration-sign-up-desktop.svg" alt="" class="desktop-img">
-        <img src="./assets/images/illustration-sign-up-mobile.svg" alt="" class="mobile-img">
-      </div>
-    </section>
-
-    <!-- Success message section -->
-    <section class="success-section" id="successSection" hidden>
-      <img src="./assets/images/icon-success.svg" alt="">
-      <h2>Thanks for subscribing!</h2>
-      <p>
-        A confirmation email has been sent to
-        <strong id="userEmail"></strong>.
-        Please open it and click the button inside to confirm your subscription.
-      </p>
-      <button id="dismissBtn">Dismiss message</button>
-    </section>
-
-  </main>
-  <footer>
-
-    <div class="attribution">
-      Challenge by <a href="https://www.frontendmentor.io?ref=challenge" target="_blank" rel="noopener">Frontend Mentor</a>.
-      Coded by <a href="#">MUGISHO NTASHARA MERCI </a>.
-    </div>
-
-  </footer>
-  <script src="./js/javascript.js"></script>
-</body>
-
-</html> 
+    <script src="./js/javascript.js"></script>
+  </body>
+</html>

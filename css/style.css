@@ -1,25 +1,25 @@
 /* ============================================
-   STEP 2: CSS VARIABLES & TYPOGRAPHY
+   CSS VARIABLES & TYPOGRAPHY
    ============================================ */
 
 /* Import Roboto Font */
-@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap");
 
 /* CSS Variables */
 :root {
   /* Colors - From Style Guide */
   --primary-red: hsl(4, 100%, 67%);
-  --primary-red-dark: hsl(4, 100%, 60%);
-  --primary-red-light: hsl(4, 100%, 73%);
+  --primary-red-dark: hsl(4, 100%, 57%);
+  --primary-red-light: hsl(4, 100%, 76%);
   --neutral-blue-800: hsl(234, 29%, 20%);
   --neutral-blue-700: hsl(235, 18%, 26%);
   --neutral-blue-600: hsl(235, 18%, 35%);
   --neutral-grey: hsl(0, 0%, 58%);
-  --neutral-grey-light: hsl(0, 0%, 95%);
+  --neutral-grey-light: hsl(231, 7%, 90%);
   --neutral-white: hsl(0, 0%, 100%);
 
   /* Typography */
-  --font-family: 'Roboto', sans-serif;
+  --font-family: "Roboto", sans-serif;
   --font-weight-regular: 400;
   --font-weight-bold: 700;
   --font-size-body: 16px;
@@ -32,25 +32,30 @@
   --spacing-xl: 3rem;
 
   /* Border radius */
-  --border-radius-sm: 0.5rem;
-  --border-radius-md: 1rem;
-  --border-radius-lg: 1.5rem;
+  --border-radius-sm: 8px;
+  --border-radius-md: 16px;
+  --border-radius-lg: 24px;
 
-  /* Shadows - Professional */
-  --shadow-sm: 0 2px 4px rgba(0, 0, 0, 0.08);
-  --shadow-md: 0 4px 12px rgba(0, 0, 0, 0.12);
-  --shadow-lg: 0 12px 28px rgba(0, 0, 0, 0.15);
-  --shadow-xl: 0 20px 40px rgba(0, 0, 0, 0.2);
+  /* Shadows */
+  --shadow-card: 0 20px 50px rgba(0, 0, 0, 0.25);
+  --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.08);
+  --shadow-md: 0 8px 24px rgba(0, 0, 0, 0.15);
 }
 
 /* ============================================
-   GLOBAL STYLES
+   GLOBAL RESET & BASE
    ============================================ */
 
-* {
+*,
+*::before,
+*::after {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
 }
 
 body {
@@ -58,10 +63,12 @@ body {
   font-size: var(--font-size-body);
   font-weight: var(--font-weight-regular);
   line-height: 1.6;
-  letter-spacing: -0.3px;
   color: var(--neutral-blue-800);
-  background-color: var(--neutral-white);
+  /* Dark blue background as per design */
+  background-color: var(--neutral-blue-800);
   min-height: 100vh;
+  display: flex;
+  flex-direction: column;
 }
 
 /* ============================================
@@ -70,32 +77,25 @@ body {
 
 h1,
 h2,
-h3,
-h4,
-h5,
-h6 {
+h3 {
   font-weight: var(--font-weight-bold);
-  line-height: 1.2;
+  line-height: 1.1;
+  color: var(--neutral-blue-800);
 }
 
 h1 {
-  font-size: 3.5rem;
-  color: var(--neutral-blue-800);
+  font-size: clamp(2rem, 4vw, 3.5rem);
   letter-spacing: -1px;
-  line-height: 1.1;
-  font-weight: 700;
+  margin-bottom: 1.5rem;
 }
 
 h2 {
-  font-size: 2.5rem;
-  color: var(--neutral-blue-800);
-  margin-bottom: var(--spacing-md);
-  letter-spacing: -0.5px;
-  font-weight: 700;
+  font-size: clamp(2.2rem, 5vw, 3.5rem);
+  letter-spacing: -1px;
+  margin-bottom: 1.5rem;
 }
 
 p {
-  margin-bottom: var(--spacing-md);
   color: var(--neutral-blue-700);
   line-height: 1.6;
 }
@@ -103,16 +103,12 @@ p {
 a {
   color: var(--primary-red);
   text-decoration: none;
-  transition: opacity 0.3s ease;
+  transition: opacity 0.2s ease;
 }
 
 a:hover {
   opacity: 0.8;
 }
-
-/* ============================================
-   LISTS
-   ============================================ */
 
 ul,
 ol {
@@ -121,12 +117,7 @@ ol {
 
 li {
   color: var(--neutral-blue-700);
-  line-height: 1.6;
 }
-
-/* ============================================
-   IMAGES
-   ============================================ */
 
 img {
   max-width: 100%;
@@ -135,772 +126,35 @@ img {
 }
 
 /* ============================================
-   FORM ELEMENTS
-   ============================================ */
-
-label {
-  font-weight: var(--font-weight-bold);
-  font-size: 0.875rem;
-  color: var(--neutral-blue-800);
-  display: block;
-  margin-bottom: var(--spacing-xs);
-}
-
-input,
-button {
-  font-family: var(--font-family);
-}
-
-button {
-  font-size: var(--font-size-body);
-  font-weight: var(--font-weight-bold);
-}
-
-/* ============================================
-   UTILITY CLASSES
-   ============================================ */
-
-.container {
-  width: 100%;
-  max-width: 1440px;
-  margin: 0 auto;
-  padding: 0;
-}
-
-/* ============================================
-   STEP 3: DESKTOP LAYOUT (1440px)
+   LAYOUT - MAIN WRAPPER
    ============================================ */
 
 main {
+  flex: 1;
   display: flex;
   align-items: center;
   justify-content: center;
   min-height: 100vh;
-  padding: var(--spacing-lg);
-  background-color: var(--neutral-white);
+  padding: 2rem;
 }
+
+/* ============================================
+   SIGNUP SECTION - DESKTOP CARD
+   ============================================ */
 
 .signup-section {
   display: flex;
+  flex-direction: row;
   background-color: var(--neutral-white);
-  border-radius: var(--border-radius-md);
-  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
+  border-radius: var(--border-radius-lg);
+  box-shadow: var(--shadow-card);
   overflow: hidden;
   max-width: 928px;
   width: 100%;
-  transition: all 0.3s ease;
-  gap: 0;
-}
-
-.content {
-  flex: 1;
-  padding: 4rem;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  min-width: 0;
-}
-
-.features-list {
-  margin-bottom: 2.5rem;
-  list-style: none;
-}
-
-.features-list li {
-  display: flex;
-  align-items: flex-start;
-  gap: 1.125rem;
-  margin-bottom: 1.25rem;
-  font-size: 1rem;
-  line-height: 1.6;
-}
-
-.features-list img {
-  width: 24px;
-  height: 24px;
-  margin-top: 3px;
-  flex-shrink: 0;
-  object-fit: contain;
-}
-
-.illustration {
-  flex: 1;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background: linear-gradient(135deg, #ff6257 0%, #ff527b 100%);
-  padding: 3.5rem;
-  min-height: 560px;
-  position: relative;
-  overflow: hidden;
-}
-
-.desktop-img {
-  width: 100%;
-  max-width: 100%;
-  height: auto;
-  position: relative;
-  z-index: 2;
-  object-fit: contain;
-}
-
-.mobile-img {
-  display: none;
-}
-
-/* Desktop form styling */
-form {
-  display: flex;
-  flex-direction: column;
-  gap: 1.5rem;
-  margin-top: 1rem;
-}
-
-form > div {
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  align-items: stretch;
-  gap: 0.75rem;
-}
-
-form input {
-  padding: 13px 16px;
-  border: 1px solid var(--neutral-grey-light);
-  border-radius: var(--border-radius-sm);
-  font-size: 1rem;
-  color: var(--neutral-blue-800);
-  background-color: var(--neutral-white);
-  transition: all 0.2s ease;
-}
-
-form input::placeholder {
-  color: var(--neutral-grey);
-}
-
-form input:hover:not(:focus) {
-  border-color: var(--neutral-grey);
-}
-
-form input:focus {
-  outline: none;
-  border-color: var(--neutral-blue-800);
-  box-shadow: none;
-}
-
-form button {
-  padding: 13px 28px;
-  background-color: var(--neutral-blue-800);
-  color: var(--neutral-white);
-  border: none;
-  border-radius: var(--border-radius-sm);
-  cursor: pointer;
-  transition: all 0.3s ease;
-  min-height: 48px;
-  font-size: 1rem;
-  font-weight: 700;
-  letter-spacing: 0.5px;
-  margin-top: 0.75rem;
-}
-
-form button:hover:not(:disabled) {
-  background-color: var(--primary-red);
-  transition: all 0.3s ease;
-}
-
-form button:active:not(:disabled) {
-  background-color: var(--primary-red);
-  opacity: 0.95;
-}
-
-form button:focus-visible {
-  outline: 3px solid var(--primary-red);
-  outline-offset: 2px;
-}
-
-/* Success section desktop */
-.success-section {
-  display: none;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  min-height: 100vh;
-  padding: var(--spacing-lg);
-  text-align: center;
-  background-color: var(--neutral-white);
-  opacity: 0;
-  visibility: hidden;
-  transition: all 0.5s ease;
-  pointer-events: none;
-}
-
-.success-section:not([hidden]) {
-  display: flex;
-  opacity: 1;
-  visibility: visible;
-  pointer-events: auto;
-}
-
-/* ============================================  
-   STEP 4: MOBILE RESPONSIVE LAYOUT
-   Tablet (768px) & Mobile (375px) & Extra-small (320px)
-   ============================================ */
-
-/* Tablet layout (768px and below) */
-@media (max-width: 768px) {
-  main {
-    padding: 1.5rem;
-    background-color: var(--neutral-white);
-  }
-
-  .signup-section {
-    flex-direction: column-reverse;
-    max-width: 100%;
-    border-radius: var(--border-radius-md);
-    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
-    gap: 0;
-  }
-
-  .content {
-    padding: 2.5rem 2rem;
-  }
-
-  .illustration {
-    min-height: 100%;
-    padding: 2rem;
-    border-radius: 0;
-  }
-
-  /* Typography - tablet adjustments */
-  h1 {
-    font-size: 2.25rem;
-    text-align: center;
-  }
-
-  h2 {
-    font-size: 2rem;
-    text-align: center;
-    margin-bottom: 1.25rem;
-  }
-
-  p {
-    text-align: center;
-    font-size: 1rem;
-  }
-
-  /* Images - switch to mobile view */
-  .desktop-img {
-    display: none;
-  }
-
-  .mobile-img {
-    display: block;
-    width: 100%;
-    max-width: 240px;
-    height: auto;
-    margin: 0 auto;
-  }
-
-  /* Features list - tablet layout */
-  .features-list {
-    margin-bottom: 2rem;
-    display: flex;
-    flex-direction: column;
-    gap: 1.25rem;
-  }
-
-  .features-list li {
-    text-align: left;
-    gap: 1rem;
-    font-size: 1rem;
-  }
-
-  .features-list img {
-    width: 21px;
-    height: 21px;
-    flex-shrink: 0;
-    margin-top: 2px;
-  }
-
-  /* Form - tablet layout */
-  form {
-    display: flex;
-    flex-direction: column;
-    gap: 1.25rem;
-    margin-top: 1rem;
-  }
-
-  form > div {
-    display: flex;
-    flex-direction: column;
-    gap: 0.5rem;
-  }
-
-  form input {
-    width: 100%;
-    padding: 12px 16px;
-    font-size: 16px;
-    min-height: 48px;
-    border: 1px solid var(--neutral-grey-light);
-  }
-
-  form input:focus {
-    outline: none;
-    border-color: var(--neutral-blue-800);
-    box-shadow: none;
-  }
-
-  form button {
-    width: 100%;
-    padding: 12px 16px;
-    min-height: 48px;
-    font-size: 1rem;
-    margin-top: 0;
-  }
-
-  /* Success section - tablet */
-  .success-section {
-    display: flex;
-    min-height: 100vh;
-    padding: 2rem 1.5rem;
-  }
-
-  .success-section img {
-    width: 52px;
-    height: 52px;
-    margin-bottom: 1.5rem;
-  }
-
-  .success-section h2 {
-    font-size: 1.875rem;
-    margin-bottom: 1rem;
-  }
-
-  .success-section p {
-    font-size: 1rem;
-    margin-bottom: 2rem;
-  }
-
-  .success-section button {
-    width: 100%;
-    min-width: auto;
-    padding: 12px 16px;
-    min-height: 48px;
-  }
-}
-
-/* Mobile layout (375px and below) */
-@media (max-width: 375px) {
-  main {
-    padding: 1rem;
-  }
-
-  .content {
-    padding: 2rem 1.5rem;
-  }
-
-  .illustration {
-    padding: 1.5rem;
-    min-height: 100%;
-  }
-
-  h1 {
-    font-size: 2rem;
-    line-height: 1.2;
-    margin-bottom: 1.5rem;
-  }
-
-  h2 {
-    font-size: 1.75rem;
-    line-height: 1.2;
-    margin-bottom: 1rem;
-  }
-
-  p {
-    font-size: 1rem;
-    line-height: 1.6;
-  }
-
-  .features-list {
-    margin-bottom: 1.75rem;
-    gap: 1rem;
-  }
-
-  .features-list li {
-    font-size: 1rem;
-    gap: 0.875rem;
-  }
-
-  .features-list img {
-    width: 21px;
-    height: 21px;
-    margin-top: 2px;
-  }
-
-  form > div {
-    gap: 0.5rem;
-  }
-
-  form input,
-  form button {
-    font-size: 16px;
-    min-height: 44px;
-    padding: 10px 14px;
-  }
-}
-
-/* Extra small devices (320px) */
-@media (max-width: 320px) {
-  main {
-    padding: 0.75rem;
-  }
-
-  .content {
-    padding: 1.5rem 1rem;
-  }
-
-  .illustration {
-    padding: 1rem;
-    min-height: 200px;
-  }
-
-  h1 {
-    font-size: 1.625rem;
-    line-height: 1.2;
-  }
-
-  h2 {
-    font-size: 1.5rem;
-    line-height: 1.2;
-  }
-
-  p {
-    font-size: 0.9375rem;
-  }
-
-  .features-list {
-    margin-bottom: 1.5rem;
-    gap: 0.875rem;
-  }
-
-  .features-list li {
-    font-size: 0.9375rem;
-    gap: 0.75rem;
-    margin-bottom: 0.75rem;
-  }
-
-  .features-list img {
-    width: 20px;
-    height: 20px;
-  }
-
-  form {
-    gap: 1rem;
-  }
-
-  form input,
-  form button {
-    font-size: 16px;
-    min-height: 42px;
-    padding: 9px 12px;
-  }
-
-  .mobile-img {
-    max-width: 200px;
-  }
-}
-
-/* ============================================
-   STEP 5: FORM STYLING & ERROR STATES
-   ============================================ */
-
-/* Form group wrapper */
-form > div {
-  position: relative;
-}
-
-/* Label styling */
-label {
-  font-weight: var(--font-weight-bold);
-  font-size: 0.875rem;
-  color: var(--neutral-blue-800);
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 0.5rem;
-  gap: 1rem;
-}
-
-/* Error message display */
-#emailError {
-  font-size: 0.75rem;
-  color: var(--primary-red);
-  font-weight: var(--font-weight-regular);
-  opacity: 0;
-  transition: opacity 0.3s ease;
-  pointer-events: none;
-  height: 0;
-}
-
-#emailError.show {
-  opacity: 1;
-  height: auto;
-}
-
-/* Input field styling */
-input[type="email"],
-input[type="text"] {
-  width: 100%;
-  padding: 13px 16px;
-  border: 1px solid var(--neutral-grey-light);
-  border-radius: var(--border-radius-sm);
-  font-family: var(--font-family);
-  font-size: var(--font-size-body);
-  color: var(--neutral-blue-800);
-  background-color: var(--neutral-white);
-  transition: all 0.2s ease;
-}
-
-input[type="email"]::placeholder,
-input[type="text"]::placeholder {
-  color: var(--neutral-grey);
-  opacity: 0.6;
-}
-
-/* Input focus state */
-input[type="email"]:focus,
-input[type="text"]:focus {
-  outline: none;
-  border-color: var(--neutral-blue-800);
-}
-
-/* Input error state */
-input[type="email"].error,
-input[type="text"].error {
-  border-color: var(--primary-red);
-  background-color: rgba(255, 98, 87, 0.05);
-}
-
-input[type="email"].error:focus,
-input[type="text"].error:focus {
-  border-color: var(--primary-red);
-}
-
-/* Input error animation */
-input.error {
-  animation: shake 0.4s ease-in-out;
-}
-
-@keyframes shake {
-  0%, 100% {
-    transform: translateX(0);
-  }
-  25% {
-    transform: translateX(-5px);
-  }
-  75% {
-    transform: translateX(5px);
-  }
-}
-
-/* Button styling */
-button {
-  font-family: var(--font-family);
-  font-size: var(--font-size-body);
-  font-weight: var(--font-weight-bold);
-  letter-spacing: 0.5px;
-  cursor: pointer;
-}
-
-/* Submit button */
-form button {
-  padding: var(--spacing-sm) var(--spacing-md);
-  background-color: var(--neutral-blue-800);
-  color: var(--neutral-white);
-  border: none;
-  border-radius: var(--border-radius-sm);
-  transition: all 0.3s ease;
-  min-height: 48px;
-  margin-top: var(--spacing-sm);
-  box-shadow: var(--shadow-sm);
-}
-
-form button:hover:not(:disabled) {
-  background-color: var(--primary-red);
-  transform: translateY(-2px);
-  box-shadow: var(--shadow-md);
-}
-
-form button:active:not(:disabled) {
-  transform: translateY(0);
-  box-shadow: var(--shadow-sm);
-}
-
-form button:focus {
-  outline: 2px solid var(--neutral-blue-800);
-  outline-offset: 2px;
-}
-
-form button:disabled {
-  opacity: 0.6;
-  cursor: not-allowed;
-}
-
-/* Dismiss button in success */
-.success-section button {
-  padding: var(--spacing-sm) var(--spacing-md);
-  background-color: var(--neutral-blue-800);
-  color: var(--neutral-white);
-  border: none;
-  border-radius: var(--border-radius-sm);
-  cursor: pointer;
-  transition: all 0.3s ease;
-  min-height: 48px;
-  box-shadow: var(--shadow-sm);
-}
-
-.success-section button:hover {
-  background-color: var(--primary-red);
-  transform: translateY(-2px);
-  box-shadow: var(--shadow-md);
-}
-
-.success-section button:active {
-  transform: translateY(0);
-  box-shadow: var(--shadow-sm);
-}
-
-.success-section button:focus {
-  outline: 2px solid var(--neutral-blue-800);
-  outline-offset: 2px;
-}
-
-/* Input valid state (optional visual feedback) */
-input[type="email"].valid {
-  border-color: #4caf50;
-  background-color: rgba(76, 175, 80, 0.02);
-}
-
-/* Label animation for error */
-label {
-  animation: none;
-  transition: color 0.3s ease;
-}
-
-label.error-label {
-  color: var(--primary-red);
-}
-
-/* Mobile form input improvements */
-@media (max-width: 768px) {
-  input[type="email"],
-  input[type="text"] {
-    font-size: 16px;
-    padding: 12px var(--spacing-md);
-    min-height: 48px;
-  }
-
-  form button {
-    width: 100%;
-    font-size: 1rem;
-    margin-top: var(--spacing-md);
-  }
-
-  #emailError {
-    font-size: 0.8rem;
-  }
-}
-
-/* ============================================
-   STEP 7: SUCCESS MESSAGE DISPLAY
-   ============================================ */
-
-/* Success section container */
-.success-section {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  min-height: 100vh;
-  padding: var(--spacing-lg);
-  text-align: center;
-  background-color: var(--neutral-white);
-  opacity: 0;
-  visibility: hidden;
-  transition: opacity 0.3s ease, visibility 0.3s ease;
-  pointer-events: none;
-}
-
-/* Show success section */
-.success-section:not([hidden]) {
-  display: flex;
-  opacity: 1;
-  visibility: visible;
-  pointer-events: auto;
-}
-
-/* Success icon styling */
-.success-section img {
-  width: 64px;
-  height: 64px;
-  margin-bottom: var(--spacing-lg);
-}
-
-/* Success heading */
-.success-section h2 {
-  font-size: 2.5rem;
-  color: var(--neutral-blue-800);
-  margin-bottom: var(--spacing-lg);
-  line-height: 1.2;
-}
-
-/* Success message text */
-.success-section p {
-  max-width: 500px;
-  font-size: var(--font-size-body);
-  line-height: 1.6;
-  color: var(--neutral-blue-700);
-  margin-bottom: var(--spacing-xl);
-}
-
-/* Highlight user email in success message */
-.success-section strong {
-  color: var(--neutral-blue-800);
-  font-weight: var(--font-weight-bold);
-  word-break: break-all;
-}
-
-/* Dismiss button in success section */
-.success-section button {
-  padding: 13px 32px;
-  min-width: 300px;
-  background-color: var(--neutral-blue-800);
-  color: var(--neutral-white);
-  border: none;
-  border-radius: var(--border-radius-sm);
-  font-weight: var(--font-weight-bold);
-  font-size: var(--font-size-body);
-  cursor: pointer;
-  transition: all 0.3s ease;
-}
-
-.success-section button:hover {
-  background-color: var(--primary-red);
-}
-
-.success-section button:active {
-  background-color: var(--primary-red);
-  opacity: 0.9;
-}
-
-.success-section button:focus {
-  outline: 2px solid var(--neutral-blue-800);
-  outline-offset: 2px;
-}
-
-/* Cross-fade transitions between sections */
-.signup-section {
-  transition: opacity 0.3s ease, visibility 0.3s ease;
+  min-height: 580px;
+  transition:
+    opacity 0.4s ease,
+    visibility 0.4s ease;
   opacity: 1;
   visibility: visible;
   pointer-events: auto;
@@ -910,104 +164,626 @@ label.error-label {
   opacity: 0;
   visibility: hidden;
   pointer-events: none;
+  display: none;
 }
 
-/* Success section - Desktop (min-width: 769px) */
-@media (min-width: 769px) {
-  .success-section {
-    max-width: 500px;
-    margin: 0 auto;
-    border-radius: var(--border-radius-md);
-    padding: var(--spacing-xl);
-    background-color: var(--neutral-white);
-    box-shadow: var(--shadow-md);
-  }
-
-  .success-section h2 {
-    font-size: 2.5rem;
-  }
-
-  .success-section button {
-    min-width: 350px;
-  }
+/* LEFT: content side */
+.content {
+  flex: 1;
+  padding: 4rem 3.5rem 3rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  min-width: 0;
 }
 
-/* Success section - Mobile (max-width: 375px) */
-@media (max-width: 375px) {
-  .success-section {
-    padding: 1.5rem;
-  }
+/* Features list */
+.features-list {
+  margin: 1.5rem 0 2.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1.125rem;
+}
 
-  .success-section img {
-    width: 40px;
-    height: 40px;
-    margin-bottom: 1.5rem;
-  }
+.features-list li {
+  display: flex;
+  align-items: flex-start;
+  gap: 1.125rem;
+  font-size: 1rem;
+  line-height: 1.6;
+  color: var(--neutral-blue-700);
+}
 
-  .success-section h2 {
-    font-size: 1.5rem;
-  }
+.features-list img {
+  width: 24px;
+  height: 24px;
+  margin-top: 2px;
+  flex-shrink: 0;
+  object-fit: contain;
+}
 
-  .success-section p {
-    font-size: 0.9rem;
-  }
+/* RIGHT: illustration side */
+.illustration {
+  flex: 0 0 400px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  /* Gradient matching design */
+  background: linear-gradient(
+    160deg,
+    hsl(15, 100%, 61%) 0%,
+    hsl(4, 100%, 67%) 55%,
+    hsl(346, 100%, 63%) 100%
+  );
+  padding: 2.5rem;
+  position: relative;
+  overflow: hidden;
+  border-radius: 0 var(--border-radius-lg) var(--border-radius-lg) 0;
+}
+
+/* Decorative blob behind illustration */
+.illustration::before {
+  content: "";
+  position: absolute;
+  bottom: -60px;
+  left: -40px;
+  width: 280px;
+  height: 280px;
+  background: radial-gradient(
+    circle,
+    hsla(45, 100%, 65%, 0.4) 0%,
+    transparent 70%
+  );
+  border-radius: 50%;
+  pointer-events: none;
+}
+
+.desktop-img {
+  width: 100%;
+  max-width: 380px;
+  height: auto;
+  position: relative;
+  z-index: 2;
+  object-fit: contain;
+  filter: drop-shadow(0 20px 28px rgba(0, 0, 0, 0.18));
+}
+
+.mobile-img {
+  display: none;
 }
 
 /* ============================================
-   STEP 8: INTERACTIVE STATES
-   Hover, Focus, Active, and Accessibility
+   FORM STYLING
    ============================================ */
 
-/* ============================================
-   INPUT INTERACTIVE STATES
-   ============================================ */
+form {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  margin-top: 0;
+}
 
-/* Email input - hover state */
+/* Label + error row */
+form > div {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  gap: 0.5rem;
+  margin-bottom: 0.5rem;
+}
+
+label {
+  font-weight: var(--font-weight-bold);
+  font-size: 0.8125rem;
+  color: var(--neutral-blue-800);
+  letter-spacing: 0.3px;
+  user-select: none;
+  cursor: pointer;
+}
+
+label.error-label {
+  color: var(--neutral-blue-800);
+}
+
+/* Error message */
+#emailError {
+  font-size: 0.75rem;
+  color: var(--primary-red);
+  font-weight: var(--font-weight-regular);
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  pointer-events: none;
+  white-space: nowrap;
+}
+
+#emailError.show {
+  opacity: 1;
+}
+
+/* Email input */
+input[type="email"],
+input[type="text"] {
+  width: 100%;
+  padding: 14px 18px;
+  border: 1.5px solid var(--neutral-grey-light);
+  border-radius: var(--border-radius-sm);
+  font-family: var(--font-family);
+  font-size: var(--font-size-body);
+  color: var(--neutral-blue-800);
+  background-color: var(--neutral-white);
+  transition:
+    border-color 0.2s ease,
+    background-color 0.2s ease,
+    box-shadow 0.2s ease;
+  margin-bottom: 1.25rem;
+}
+
+input[type="email"]::placeholder,
+input[type="text"]::placeholder {
+  color: var(--neutral-grey);
+}
+
 input[type="email"]:hover:not(:focus),
 input[type="text"]:hover:not(:focus) {
   border-color: var(--neutral-grey);
 }
 
-/* Email input - placeholder styling */
-input::placeholder {
-  color: var(--neutral-grey);
+input[type="email"]:focus,
+input[type="text"]:focus {
+  outline: none;
+  border-color: var(--neutral-blue-800);
+  box-shadow: none;
 }
 
-/* ============================================
-   BUTTON INTERACTIVE STATES
-   ============================================ */
-
-/* Submit button - focus state */
-form button:focus {
-  outline: 2px solid var(--neutral-blue-800);
-  outline-offset: 2px;
+/* Error state */
+input[type="email"].error,
+input[type="text"].error {
+  border-color: var(--primary-red);
+  background-color: hsl(4, 100%, 96%);
+  color: var(--primary-red);
 }
 
-/* Submit button - disabled state */
+input[type="email"].error::placeholder,
+input[type="text"].error::placeholder {
+  color: var(--primary-red);
+  opacity: 0.7;
+}
+
+input[type="email"].error:focus,
+input[type="text"].error:focus {
+  border-color: var(--primary-red);
+}
+
+/* Error shake animation */
+input.error {
+  animation: shake 0.4s ease-in-out;
+}
+
+@keyframes shake {
+  0%,
+  100% {
+    transform: translateX(0);
+  }
+  25% {
+    transform: translateX(-6px);
+  }
+  75% {
+    transform: translateX(6px);
+  }
+}
+
+/* Valid state */
+input[type="email"].valid {
+  border-color: hsl(143, 50%, 50%);
+  background-color: var(--neutral-white);
+}
+
+/* Submit button */
+input,
+button {
+  font-family: var(--font-family);
+}
+
+button {
+  font-size: var(--font-size-body);
+  font-weight: var(--font-weight-bold);
+  cursor: pointer;
+}
+
+form button {
+  width: 100%;
+  padding: 16px 24px;
+  background-color: var(--neutral-blue-800);
+  color: var(--neutral-white);
+  border: none;
+  border-radius: var(--border-radius-sm);
+  font-size: 1rem;
+  font-weight: var(--font-weight-bold);
+  letter-spacing: 0.3px;
+  cursor: pointer;
+  transition:
+    background-color 0.3s ease,
+    transform 0.15s ease,
+    box-shadow 0.3s ease;
+  min-height: 52px;
+}
+
+form button:hover:not(:disabled) {
+  background: linear-gradient(
+    90deg,
+    hsl(4, 100%, 65%) 0%,
+    hsl(346, 100%, 63%) 100%
+  );
+  transform: translateY(-1px);
+  box-shadow: 0 6px 20px hsla(4, 100%, 60%, 0.4);
+}
+
+form button:active:not(:disabled) {
+  transform: translateY(0);
+  box-shadow: none;
+}
+
+form button:focus-visible {
+  outline: 3px solid var(--primary-red);
+  outline-offset: 3px;
+}
+
 form button:disabled {
   opacity: 0.6;
   cursor: not-allowed;
 }
 
 /* ============================================
-   LABEL INTERACTIVE STATES
+   SUCCESS SECTION
    ============================================ */
 
-label {
-  -webkit-user-select: none;
-  -moz-user-select: none;
-  user-select: none;
+.success-section {
+  display: none;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: flex-start;
+  text-align: left;
+  background-color: var(--neutral-white);
+  opacity: 0;
+  visibility: hidden;
+  transition:
+    opacity 0.5s ease,
+    visibility 0.5s ease;
+  pointer-events: none;
+}
+
+/* When visible */
+.success-section:not([hidden]) {
+  display: flex;
+  opacity: 1;
+  visibility: visible;
+  pointer-events: auto;
+}
+
+/* Desktop success — compact centered card */
+@media (min-width: 769px) {
+  .success-section {
+    max-width: 500px;
+    width: 100%;
+    border-radius: var(--border-radius-lg);
+    padding: 3.5rem 4rem;
+    box-shadow: var(--shadow-card);
+  }
+
+  .success-section img {
+    width: 64px;
+    height: 64px;
+    margin-bottom: 2.5rem;
+  }
+
+  .success-section h2 {
+    font-size: 3.5rem;
+    color: var(--neutral-blue-800);
+    line-height: 1.1;
+    letter-spacing: -1px;
+    margin-bottom: 1.5rem;
+  }
+
+  .success-section p {
+    font-size: 1rem;
+    color: var(--neutral-blue-700);
+    line-height: 1.6;
+    margin-bottom: 2.5rem;
+  }
+
+  .success-section strong {
+    color: var(--neutral-blue-800);
+    font-weight: var(--font-weight-bold);
+  }
+
+  .success-section button {
+    width: 100%;
+    padding: 16px 24px;
+    background-color: var(--neutral-blue-800);
+    color: var(--neutral-white);
+    border: none;
+    border-radius: var(--border-radius-sm);
+    font-size: 1rem;
+    font-weight: var(--font-weight-bold);
+    letter-spacing: 0.3px;
+    cursor: pointer;
+    min-height: 52px;
+    transition:
+      background-color 0.3s ease,
+      transform 0.15s ease,
+      box-shadow 0.3s ease;
+  }
+
+  .success-section button:hover {
+    background: linear-gradient(
+      90deg,
+      hsl(4, 100%, 65%) 0%,
+      hsl(346, 100%, 63%) 100%
+    );
+    transform: translateY(-1px);
+    box-shadow: 0 6px 20px hsla(4, 100%, 60%, 0.4);
+  }
+
+  .success-section button:active {
+    transform: translateY(0);
+    box-shadow: none;
+  }
+
+  .success-section button:focus-visible {
+    outline: 3px solid var(--primary-red);
+    outline-offset: 3px;
+  }
 }
 
 /* ============================================
-   SMOOTH SCROLLING & TRANSITIONS
+   FOOTER
    ============================================ */
 
-html {
-  scroll-behavior: smooth;
+footer {
+  padding: 1.25rem 1.5rem;
+  text-align: center;
 }
 
-/* Reduce motion for users who prefer it */
+.attribution {
+  font-size: 0.8125rem;
+  color: rgba(255, 255, 255, 0.55);
+  line-height: 1.8;
+}
+
+.attribution a {
+  color: var(--primary-red-light);
+  font-weight: 600;
+  transition: color 0.2s ease;
+}
+
+.attribution a:hover {
+  color: var(--neutral-white);
+}
+
+/* ============================================
+   SCREEN READER ONLY UTILITY
+   ============================================ */
+
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border-width: 0;
+}
+
+/* ============================================
+   RESPONSIVE — MOBILE (768px and below)
+   ============================================ */
+
+@media (max-width: 768px) {
+  body {
+    background-color: var(--neutral-white);
+  }
+
+  main {
+    padding: 0;
+    align-items: flex-start;
+    min-height: 100vh;
+  }
+
+  /* Full-width card that fills screen on mobile */
+  .signup-section {
+    flex-direction: column-reverse;
+    max-width: 100%;
+    border-radius: 0;
+    box-shadow: none;
+    min-height: 100vh;
+  }
+
+  .content {
+    padding: 2.5rem 1.5rem 2rem;
+    justify-content: flex-start;
+  }
+
+  h1 {
+    font-size: 2.5rem;
+    margin-bottom: 1.25rem;
+  }
+
+  .features-list {
+    margin: 1.25rem 0 2rem;
+    gap: 1rem;
+  }
+
+  .features-list li {
+    gap: 1rem;
+  }
+
+  .features-list img {
+    width: 21px;
+    height: 21px;
+  }
+
+  /* Image on top for mobile */
+  .illustration {
+    flex: none;
+    min-height: 280px;
+    max-height: 320px;
+    padding: 0;
+    border-radius: 0;
+    border-bottom-left-radius: 0;
+    border-bottom-right-radius: 0;
+    overflow: hidden;
+  }
+
+  .illustration::before {
+    display: none;
+  }
+
+  .desktop-img {
+    display: none;
+  }
+
+  .mobile-img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center top;
+    max-width: none;
+    filter: none;
+  }
+
+  /* Form mobile */
+  form > div {
+    margin-bottom: 0.375rem;
+  }
+
+  input[type="email"],
+  input[type="text"] {
+    font-size: 16px; /* prevent iOS zoom */
+    padding: 14px 16px;
+    min-height: 52px;
+    margin-bottom: 1rem;
+  }
+
+  form button {
+    width: 100%;
+    padding: 16px;
+    min-height: 52px;
+    font-size: 1rem;
+  }
+
+  /* Success - mobile: full screen white */
+  .success-section {
+    min-height: 100vh;
+    width: 100%;
+    padding: 4rem 1.5rem 2rem;
+    border-radius: 0;
+    box-shadow: none;
+    background-color: var(--neutral-white);
+    align-items: flex-start;
+  }
+
+  .success-section img {
+    width: 58px;
+    height: 58px;
+    margin-bottom: 2.5rem;
+  }
+
+  .success-section h2 {
+    font-size: 2.5rem;
+    color: var(--neutral-blue-800);
+    line-height: 1.1;
+    letter-spacing: -1px;
+    margin-bottom: 1.25rem;
+  }
+
+  .success-section p {
+    font-size: 1rem;
+    color: var(--neutral-blue-700);
+    line-height: 1.65;
+    margin-bottom: auto;
+  }
+
+  .success-section strong {
+    color: var(--neutral-blue-800);
+    font-weight: var(--font-weight-bold);
+  }
+
+  .success-section button {
+    width: 100%;
+    padding: 16px;
+    background-color: var(--neutral-blue-800);
+    color: var(--neutral-white);
+    border: none;
+    border-radius: var(--border-radius-sm);
+    font-size: 1rem;
+    font-weight: var(--font-weight-bold);
+    cursor: pointer;
+    min-height: 52px;
+    margin-top: 2.5rem;
+    transition:
+      background-color 0.3s ease,
+      box-shadow 0.3s ease;
+  }
+
+  .success-section button:hover {
+    background: linear-gradient(
+      90deg,
+      hsl(4, 100%, 65%) 0%,
+      hsl(346, 100%, 63%) 100%
+    );
+    box-shadow: 0 6px 20px hsla(4, 100%, 60%, 0.4);
+  }
+
+  footer {
+    display: none;
+  }
+}
+
+/* Smallest phones */
+@media (max-width: 375px) {
+  .content {
+    padding: 2rem 1.25rem 1.5rem;
+  }
+
+  h1 {
+    font-size: 2.125rem;
+  }
+
+  .success-section {
+    padding: 3rem 1.25rem 1.5rem;
+  }
+
+  .success-section h2 {
+    font-size: 2.25rem;
+  }
+}
+
+/* ============================================
+   ACCESSIBILITY
+   ============================================ */
+
+/* Focus visible outlines */
+button:focus-visible,
+input:focus-visible {
+  outline: 3px solid var(--primary-red);
+  outline-offset: 2px;
+}
+
+/* High contrast */
+@media (prefers-contrast: more) {
+  input:focus {
+    border-width: 2px;
+    box-shadow:
+      0 0 0 2px var(--neutral-white),
+      0 0 0 4px var(--neutral-blue-800);
+  }
+}
+
+/* Reduce motion */
 @media (prefers-reduced-motion: reduce) {
   *,
   *::before,
@@ -1015,158 +791,10 @@ html {
     animation-duration: 0.01ms !important;
     animation-iteration-count: 1 !important;
     transition-duration: 0.01ms !important;
-    scroll-behavior: auto !important;
   }
 
-  form button:hover:not(:disabled) {
-    transform: none;
-    box-shadow: var(--shadow-md);
-  }
-
-  form button:active:not(:disabled) {
-    transform: none;
-  }
-
+  form button:hover:not(:disabled),
   .success-section button:hover {
     transform: none;
-    box-shadow: var(--shadow-md);
-  }
-
-  .success-section button:active {
-    transform: none;
-  }
-
-  .features-list li:hover {
-    transform: none;
-  }
-
-  .features-list li:hover img {
-    transform: none;
-  }
-
-  @media (min-width: 769px) {
-    .signup-section:hover {
-      transform: none;
-    }
   }
 }
-
-/* ============================================
-   KEYBOARD NAVIGATION ENHANCEMENTS
-   ============================================ */
-
-/* Focus visible - standard outline for keyboard users */
-button:focus-visible,
-input:focus-visible {
-  outline: 3px solid var(--primary-red);
-  outline-offset: 2px;
-}
-
-/* Remove focus styles for mouse users (pointer) */
-@media (pointer: fine) {
-  button:focus:not(:focus-visible),
-  input:focus:not(:focus-visible) {
-    outline: none;
-  }
-}
-
-/* ============================================
-   CURSOR STATES
-   ============================================ */
-
-button {
-  cursor: pointer;
-}
-
-button:disabled {
-  cursor: not-allowed;
-}
-
-label {
-  cursor: pointer;
-}
-
-input {
-  cursor: text;
-}
-
-/* ============================================
-   COLOR CONTRAST FOR INTERACTIVE STATES
-   ============================================ */
-
-/* High contrast mode support */
-@media (prefers-contrast: more) {
-  input:focus {
-    border-width: 2px;
-    box-shadow: 0 0 0 2px var(--neutral-white), 0 0 0 4px var(--neutral-blue-800);
-  }
-
-  form button:focus,
-  .success-section button:focus {
-    outline-width: 3px;
-  }
-}
-
-/* ============================================
-   DARK COLOR SCHEME SUPPORT (if applicable)
-   ============================================ */
-
-@media (prefers-color-scheme: dark) {
-  /* Keep light theme as per design spec */
-  body {
-    background-color: var(--neutral-white);
-    color: var(--neutral-blue-800);
-  }
-}
-
-/* ============================================
-   PROFESSIONAL ENHANCEMENTS: FOOTER
-   ============================================ */
-
-footer {
-  background: linear-gradient(135deg, var(--neutral-blue-800) 0%, var(--neutral-blue-600) 100%);
-  padding: 2rem var(--spacing-md);
-  text-align: center;
-  margin-top: var(--spacing-xl);
-  border-top: 1px solid rgba(255, 255, 255, 0.1);
-}
-
-.attribution {
-  font-size: 0.875rem;
-  color: rgba(255, 255, 255, 0.85);
-  line-height: 1.8;
-  letter-spacing: 0.3px;
-}
-
-.attribution a {
-  color: var(--primary-red-light);
-  text-decoration: none;
-  font-weight: 600;
-  transition: all 0.3s ease;
-  padding-bottom: 1px;
-}
-
-.attribution a:hover {
-  color: var(--neutral-white);
-  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
-}
-
-/* Footer responsive */
-@media (max-width: 768px) {
-  footer {
-    padding: 1.5rem 1rem;
-    margin-top: 2rem;
-  }
-
-  .attribution {
-    font-size: 0.8rem;
-    line-height: 1.6;
-  }
-}
-
-/* ============================================
-   ANIMATIONS
-   ============================================ */
-
-/* Already defined in STEP 5: Error animation */
-/* @keyframes shake */
