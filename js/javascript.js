@@ -116,15 +116,18 @@ function handleFormSubmit(e) {
 /**
  * Display success message with user email
  * @param {string} email - User's email address
+ * 
+ * STEP 7: With animations and CSS transitions
  */
 function displaySuccess(email) {
   // Set user email in success message
   userEmail.textContent = email;
   
-  // Hide signup form section
+  // Hide signup form section with fade out
+  signupSection.classList.add('hidden');
   signupSection.style.display = 'none';
   
-  // Show success section
+  // Show success section with fade in
   successSection.hidden = false;
   successSection.removeAttribute('hidden');
 }
@@ -138,6 +141,7 @@ function resetForm() {
   successSection.hidden = true;
   
   // Show signup form section
+  signupSection.classList.remove('hidden');
   signupSection.style.display = 'flex';
   
   // Reset form
