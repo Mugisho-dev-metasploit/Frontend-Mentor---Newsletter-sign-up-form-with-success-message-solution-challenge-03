@@ -316,7 +316,7 @@ form button:hover {
   background-color: var(--primary-red);
 }
 
-/* ============================================
+/* ============================================  
    STEP 4: MOBILE RESPONSIVE LAYOUT (375px)
    ============================================ */
 
@@ -498,5 +498,207 @@ form button:hover {
 
   .features-list li {
     font-size: 0.95rem;
+  }
+}
+
+/* ============================================
+   STEP 5: FORM STYLING & ERROR STATES
+   ============================================ */
+
+/* Form group wrapper */
+form > div {
+  position: relative;
+}
+
+/* Label styling */
+label {
+  font-weight: var(--font-weight-bold);
+  font-size: 0.875rem;
+  color: var(--neutral-blue-800);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: var(--spacing-xs);
+  gap: var(--spacing-sm);
+}
+
+/* Error message display */
+#emailError {
+  font-size: 0.75rem;
+  color: var(--primary-red);
+  font-weight: var(--font-weight-regular);
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  pointer-events: none;
+}
+
+#emailError.show {
+  opacity: 1;
+}
+
+/* Input field styling */
+input[type="email"],
+input[type="text"] {
+  width: 100%;
+  padding: var(--spacing-sm) var(--spacing-md);
+  border: 1px solid var(--neutral-grey);
+  border-radius: var(--border-radius-sm);
+  font-family: var(--font-family);
+  font-size: var(--font-size-body);
+  color: var(--neutral-blue-800);
+  background-color: var(--neutral-white);
+  transition: all 0.3s ease;
+}
+
+input[type="email"]::placeholder,
+input[type="text"]::placeholder {
+  color: var(--neutral-grey);
+  opacity: 0.6;
+}
+
+/* Input focus state */
+input[type="email"]:focus,
+input[type="text"]:focus {
+  outline: none;
+  border-color: var(--neutral-blue-800);
+  box-shadow: 0 0 0 3px rgba(52, 64, 84, 0.1);
+  background-color: rgba(52, 64, 84, 0.02);
+}
+
+/* Input error state */
+input[type="email"].error,
+input[type="text"].error {
+  border-color: var(--primary-red);
+  background-color: rgba(255, 98, 87, 0.05);
+}
+
+input[type="email"].error:focus,
+input[type="text"].error:focus {
+  border-color: var(--primary-red);
+  box-shadow: 0 0 0 3px rgba(252, 98, 87, 0.1);
+}
+
+/* Input error animation */
+input.error {
+  animation: inputShake 0.4s ease-in-out;
+}
+
+@keyframes inputShake {
+  0%, 100% {
+    transform: translateX(0);
+  }
+  25% {
+    transform: translateX(-5px);
+  }
+  75% {
+    transform: translateX(5px);
+  }
+}
+
+/* Button styling */
+button {
+  font-family: var(--font-family);
+  font-size: var(--font-size-body);
+  font-weight: var(--font-weight-bold);
+  letter-spacing: 0.5px;
+  cursor: pointer;
+}
+
+/* Submit button */
+form button {
+  padding: var(--spacing-sm) var(--spacing-md);
+  background-color: var(--neutral-blue-800);
+  color: var(--neutral-white);
+  border: none;
+  border-radius: var(--border-radius-sm);
+  transition: all 0.3s ease;
+  min-height: 48px;
+  margin-top: var(--spacing-sm);
+  box-shadow: var(--shadow-sm);
+}
+
+form button:hover:not(:disabled) {
+  background-color: var(--primary-red);
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-md);
+}
+
+form button:active:not(:disabled) {
+  transform: translateY(0);
+  box-shadow: var(--shadow-sm);
+}
+
+form button:focus {
+  outline: 2px solid var(--neutral-blue-800);
+  outline-offset: 2px;
+}
+
+form button:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+/* Dismiss button in success */
+.success-section button {
+  padding: var(--spacing-sm) var(--spacing-md);
+  background-color: var(--neutral-blue-800);
+  color: var(--neutral-white);
+  border: none;
+  border-radius: var(--border-radius-sm);
+  cursor: pointer;
+  transition: all 0.3s ease;
+  min-height: 48px;
+  box-shadow: var(--shadow-sm);
+}
+
+.success-section button:hover {
+  background-color: var(--primary-red);
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-md);
+}
+
+.success-section button:active {
+  transform: translateY(0);
+  box-shadow: var(--shadow-sm);
+}
+
+.success-section button:focus {
+  outline: 2px solid var(--neutral-blue-800);
+  outline-offset: 2px;
+}
+
+/* Input valid state (optional visual feedback) */
+input[type="email"].valid {
+  border-color: #4caf50;
+  background-color: rgba(76, 175, 80, 0.02);
+}
+
+/* Label animation for error */
+label {
+  animation: none;
+  transition: color 0.3s ease;
+}
+
+label.error-label {
+  color: var(--primary-red);
+}
+
+/* Mobile form input improvements */
+@media (max-width: 768px) {
+  input[type="email"],
+  input[type="text"] {
+    font-size: 16px;
+    padding: 12px var(--spacing-md);
+    min-height: 48px;
+  }
+
+  form button {
+    width: 100%;
+    font-size: 1rem;
+    margin-top: var(--spacing-md);
+  }
+
+  #emailError {
+    font-size: 0.8rem;
   }
 }
