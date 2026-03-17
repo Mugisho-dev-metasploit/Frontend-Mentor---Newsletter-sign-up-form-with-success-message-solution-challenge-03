@@ -1,0 +1,155 @@
+/* ============================================
+   STEP 2: CSS VARIABLES & TYPOGRAPHY
+   ============================================ */
+
+/* Import Roboto Font */
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap');
+
+/* CSS Variables */
+:root {
+  /* Colors - From Style Guide */
+  --primary-red: hsl(4, 100%, 67%);
+  --neutral-blue-800: hsl(234, 29%, 20%);
+  --neutral-blue-700: hsl(235, 18%, 26%);
+  --neutral-grey: hsl(0, 0%, 58%);
+  --neutral-white: hsl(0, 0%, 100%);
+
+  /* Typography */
+  --font-family: 'Roboto', sans-serif;
+  --font-weight-regular: 400;
+  --font-weight-bold: 700;
+  --font-size-body: 16px;
+
+  /* Spacing */
+  --spacing-xs: 0.5rem;
+  --spacing-sm: 1rem;
+  --spacing-md: 1.5rem;
+  --spacing-lg: 2rem;
+  --spacing-xl: 3rem;
+
+  /* Border radius */
+  --border-radius-sm: 0.5rem;
+  --border-radius-md: 1rem;
+
+  /* Shadows */
+  --shadow-sm: 0 2px 4px rgba(0, 0, 0, 0.1);
+  --shadow-md: 0 4px 8px rgba(0, 0, 0, 0.15);
+}
+
+/* ============================================
+   GLOBAL STYLES
+   ============================================ */
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: var(--font-family);
+  font-size: var(--font-size-body);
+  font-weight: var(--font-weight-regular);
+  line-height: 1.5;
+  color: var(--neutral-blue-800);
+  background-color: var(--neutral-white);
+  min-height: 100vh;
+}
+
+/* ============================================
+   TYPOGRAPHY
+   ============================================ */
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-weight: var(--font-weight-bold);
+  line-height: 1.2;
+}
+
+h1 {
+  font-size: 3.5rem;
+  color: var(--neutral-blue-800);
+  margin-bottom: var(--spacing-md);
+}
+
+h2 {
+  font-size: 2.5rem;
+  color: var(--neutral-blue-800);
+  margin-bottom: var(--spacing-md);
+}
+
+p {
+  margin-bottom: var(--spacing-md);
+  color: var(--neutral-blue-700);
+  line-height: 1.6;
+}
+
+a {
+  color: var(--primary-red);
+  text-decoration: none;
+  transition: opacity 0.3s ease;
+}
+
+a:hover {
+  opacity: 0.8;
+}
+
+/* ============================================
+   LISTS
+   ============================================ */
+
+ul,
+ol {
+  list-style: none;
+}
+
+li {
+  color: var(--neutral-blue-700);
+  line-height: 1.6;
+}
+
+/* ============================================
+   IMAGES
+   ============================================ */
+
+img {
+  max-width: 100%;
+  height: auto;
+  display: block;
+}
+
+/* ============================================
+   FORM ELEMENTS
+   ============================================ */
+
+label {
+  font-weight: var(--font-weight-bold);
+  font-size: 0.875rem;
+  color: var(--neutral-blue-800);
+  display: block;
+  margin-bottom: var(--spacing-xs);
+}
+
+input,
+button {
+  font-family: var(--font-family);
+}
+
+button {
+  font-size: var(--font-size-body);
+  font-weight: var(--font-weight-bold);
+}
+
+/* ============================================
+   UTILITY CLASSES
+   ============================================ */
+
+.container {
+  width: 100%;
+  max-width: 1440px;
+  margin: 0 auto;
+}
