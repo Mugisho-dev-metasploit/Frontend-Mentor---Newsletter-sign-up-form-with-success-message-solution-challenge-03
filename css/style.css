@@ -366,7 +366,7 @@ form button:focus-visible {
   }
 
   .illustration {
-    min-height: 280px;
+    min-height: 100%;
     padding: 2rem;
     border-radius: 0;
   }
@@ -501,7 +501,7 @@ form button:focus-visible {
 
   .illustration {
     padding: 1.5rem;
-    min-height: 240px;
+    min-height: 100%;
   }
 
   h1 {
