@@ -153,3 +153,165 @@ button {
   max-width: 1440px;
   margin: 0 auto;
 }
+
+/* ============================================
+   STEP 3: DESKTOP LAYOUT (1440px)
+   ============================================ */
+
+main {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  padding: var(--spacing-lg);
+}
+
+.signup-section {
+  display: flex;
+  background-color: var(--neutral-white);
+  border-radius: var(--border-radius-md);
+  box-shadow: var(--shadow-md);
+  overflow: hidden;
+  max-width: 900px;
+  width: 100%;
+}
+
+.content {
+  flex: 1;
+  padding: var(--spacing-xl);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.features-list {
+  margin-bottom: var(--spacing-xl);
+}
+
+.features-list li {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--spacing-sm);
+  margin-bottom: var(--spacing-md);
+}
+
+.features-list img {
+  width: 21px;
+  height: 21px;
+  margin-top: 2px;
+  flex-shrink: 0;
+}
+
+.illustration {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(135deg, var(--primary-red) 0%, var(--primary-red) 100%);
+  padding: var(--spacing-xl);
+  min-height: 500px;
+}
+
+.desktop-img {
+  width: 100%;
+  max-width: 400px;
+  height: auto;
+}
+
+.mobile-img {
+  display: none;
+}
+
+/* Desktop form styling */
+form {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-md);
+}
+
+form > div {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+form input {
+  padding: var(--spacing-sm) var(--spacing-md);
+  border: 1px solid var(--neutral-grey);
+  border-radius: var(--border-radius-sm);
+  font-size: var(--font-size-body);
+  color: var(--neutral-blue-800);
+  transition: border-color 0.3s ease, background-color 0.3s ease;
+}
+
+form input::placeholder {
+  color: var(--neutral-grey);
+}
+
+form input:focus {
+  outline: none;
+  border-color: var(--neutral-blue-800);
+  background-color: rgba(52, 64, 84, 0.02);
+}
+
+form button {
+  padding: var(--spacing-sm) var(--spacing-md);
+  background-color: var(--neutral-blue-800);
+  color: var(--neutral-white);
+  border: none;
+  border-radius: var(--border-radius-sm);
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  margin-top: var(--spacing-sm);
+}
+
+form button:hover {
+  background-color: var(--primary-red);
+}
+
+/* Success section desktop */
+.success-section {
+  display: none;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  padding: var(--spacing-lg);
+  text-align: center;
+}
+
+.success-section[hidden="false"],
+.success-section:not([hidden]) {
+  display: flex;
+}
+
+.success-section img {
+  width: 64px;
+  height: 64px;
+  margin-bottom: var(--spacing-lg);
+}
+
+.success-section h2 {
+  margin-bottom: var(--spacing-md);
+}
+
+.success-section p {
+  max-width: 500px;
+  margin-bottom: var(--spacing-xl);
+  color: var(--neutral-blue-700);
+}
+
+.success-section button {
+  padding: var(--spacing-sm) var(--spacing-xl);
+  background-color: var(--neutral-blue-800);
+  color: var(--neutral-white);
+  border: none;
+  border-radius: var(--border-radius-sm);
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  min-width: 300px;
+}
+
+.success-section button:hover {
+  background-color: var(--primary-red);
+}
