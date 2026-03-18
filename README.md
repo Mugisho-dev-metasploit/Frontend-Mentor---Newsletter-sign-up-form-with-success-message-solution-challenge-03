@@ -1,6 +1,6 @@
 # Frontend Mentor - Newsletter sign-up form with success message solution
 
-This is a solution to the [Newsletter sign-up form with success message challenge on Frontend Mentor](https://www.frontendmentor.io/challenges/newsletter-signup-form-with-success-message-3FC1AZbNrv). 
+This is a solution to the [Newsletter sign-up form with success message challenge on Frontend Mentor](https://www.frontendmentor.io/challenges/newsletter-signup-form-with-success-message-3FC1AZbNrv). Frontend Mentor challenges help you improve your coding skills by building realistic projects.
 
 ## Table of contents
 
@@ -12,8 +12,9 @@ This is a solution to the [Newsletter sign-up form with success message challeng
   - [Built with](#built-with)
   - [What I learned](#what-i-learned)
   - [Continued development](#continued-development)
-  - [AI Collaboration](#ai-collaboration)
+  - [Useful resources](#useful-resources)
 - [Author](#author)
+- [Acknowledgments](#acknowledgments)
 
 ## Overview
 
@@ -21,197 +22,171 @@ This is a solution to the [Newsletter sign-up form with success message challeng
 
 Users should be able to:
 
-- ✅ Add their email and submit the form
-- ✅ See a success message with their email after successfully submitting the form
-- ✅ See form validation messages if:
+- Add their email and submit the form
+- See a success message with their email after successfully submitting the form
+- See form validation messages if:
   - The field is left empty
   - The email address is not formatted correctly
-- ✅ View the optimal layout for the interface depending on their device's screen size
-- ✅ See hover and focus states for all interactive elements on the page
+- View the optimal layout for the interface depending on their device's screen size
+- See hover and focus states for all interactive elements on the page
 
 ### Screenshot
 
-**Desktop View:**
-![Desktop Design](./design/desktop-design.jpg)
-
-**Mobile View:**
-![Mobile Design](./design/mobile-design.jpg)
-
-**Success State:**
-![Success Message](./design/desktop-success.jpg)
+![Project preview-desktop](./sceenshot-project-desktop.png)
+![Project preview-desktop](./sceenshot-project-mobile.png)
+![Project preview-desktop](./Screenshot-messanger.png)
 
 ### Links
 
-- Solution URL: [GitHub Repository](https://github.com/FreeDev-Group/newsletter-signup-form-with-success-message-by-Dieu-merci)
-- Live Site URL: [Deployed Site](https://freedev-group.github.io/newsletter-signup-form-with-success-message-by-Dieu-merci/)
+- Solution URL: https://github.com/FreeDev-Group/newsletter-signup-form-with-success-message-by-Dieu-merci
+- Live Site URL: https://freedev-group.github.io/newsletter-signup-form-with-success-message-by-Dieu-merci/
 
 ## My process
 
 ### Built with
 
-- **HTML5** - Semantic markup with proper accessibility
-- **CSS3** - Custom properties, Flexbox, Grid, and responsive design
-- **Vanilla JavaScript** - Form validation, event handling, and DOM manipulation
-- **Mobile-first workflow** - Designed for mobile first, then enhanced for desktop
-- **WCAG Accessibility** - ARIA labels, keyboard navigation, focus management
-- **Git & GitHub** - Version control and collaboration
-
-### Key Implementation Details
-
-#### HTML Structure
-- Semantic HTML with proper form elements
-- ARIA labels and error announcements for accessibility
-- Clean, readable markup
-
-#### CSS Features
-- CSS custom properties (variables) for consistent theming
-- Responsive design with multiple breakpoints (320px, 375px, 768px, 1440px)
-- Professional gradient backgrounds
-- Smooth transitions and keyboard-accessible focus states
-- Mobile-first approach
-
-#### JavaScript Functionality
-- Real-time email validation using regex pattern
-- Error message display with animations
-- Success message handling with user email display
-- Form reset and state management
-- Keyboard support (Tab, Escape, Alt+E shortcuts)
-- Screen reader announcements with ARIA live regions
+- HTML5
+- CSS custom properties
+- Flexbox
+- CSS Grid
+- Mobile-first workflow
+- Vanilla JavaScript (form validation + success message)
+- Responsive design
 
 ### What I learned
 
-1. **Form Validation & UX**
-   - Importance of both real-time and on-submit validation
-   - Clear error messaging improves user experience
-   - Visual feedback is crucial for form interactions
+In this project I reinforced how to build a form that feels polished and accessible:
 
-2. **Responsive Design**
-   - Mobile-first approach simplifies scaling to larger screens
-   - Proper use of media queries for different breakpoints
-   - Flexible layouts with Flexbox
+#### 1. Semantic HTML for Forms
 
-3. **Accessibility**
-   - ARIA live regions for dynamic content announcements
-   - Proper focus management and keyboard navigation
-   - Color contrast and semantic HTML matter
+Building proper form structure with semantic elements ensures better accessibility and browser support:
 
-4. **CSS Architecture**
-   - CSS custom properties make theming and maintenance easier
-   - Consistent spacing and typography scales
-   - Shadow and gradient systems create professional interfaces
+```html
+<form id="newsletterForm" novalidate>
+  <label for="emailInput">Email address</label>
+  <input 
+    type="email" 
+    id="emailInput" 
+    name="email" 
+    placeholder="example@outlook.com"
+    required
+  />
+  <button type="submit">Subscribe to monthly newsletter</button>
+</form>
+```
 
-5. **JavaScript Best Practices**
-   - Event delegation and proper event listener management
-   - Separation of concerns (validation, display, state)
-   - Defensive programming with null checks
+**Why it matters:** Using `<label>` with `for` attribute connects labels to inputs, improving keyboard navigation and screen reader compatibility.
 
-### Code Examples
+#### 2. Form Validation with Constraint Validation API
 
-**Email Validation:**
+Instead of custom validation logic, I leveraged the browser's built-in Constraint Validation API:
+
 ```javascript
-function validateEmail(email) {
-  const trimmedEmail = email.trim();
+const form = document.getElementById('newsletterForm');
+const emailInput = document.getElementById('emailInput');
+
+form.addEventListener('submit', (e) => {
+  e.preventDefault();
   
-  if (trimmedEmail === '') {
-    return 'Email address is required';
+  // Check browser validation first
+  if (!form.checkValidity()) {
+    emailInput.classList.add('invalid');
+    emailInput.setAttribute('aria-invalid', 'true');
+    return;
   }
   
-  if (!emailRegex.test(trimmedEmail)) {
-    return 'Valid email required';
-  }
-  
-  return null;
+  // Valid email - proceed with success message
+  showSuccessMessage(emailInput.value);
+  form.reset();
+});
+
+emailInput.addEventListener('input', () => {
+  emailInput.classList.remove('invalid');
+  emailInput.setAttribute('aria-invalid', 'false');
+});
+```
+
+**Key benefits:** Native browser validation handles email format checking, required field validation, and provides multilingual error messages without extra code.
+
+#### 3. Dynamic UI State Management
+
+Toggling visibility between form and success message using CSS classes:
+
+```javascript
+function showSuccessMessage(email) {
+  document.getElementById('formContainer').classList.add('hidden');
+  document.getElementById('successContainer').classList.remove('hidden');
+  document.getElementById('userEmail').textContent = email;
+}
+
+function dismissMessage() {
+  document.getElementById('formContainer').classList.remove('hidden');
+  document.getElementById('successContainer').classList.add('hidden');
 }
 ```
 
-**CSS Variables System:**
 ```css
-:root {
-  --primary-red: hsl(4, 100%, 67%);
-  --neutral-blue-800: hsl(234, 29%, 20%);
-  --shadow-card: 0 20px 50px rgba(0, 0, 0, 0.25);
-  --border-radius-md: 16px;
+.hidden {
+  display: none;
+}
+
+.invalid {
+  border-color: #ff6155;
+  background-color: rgba(255, 97, 85, 0.1);
+}
+
+.invalid::placeholder {
+  color: #ff6155;
 }
 ```
 
-**Success Message Display:**
-```javascript
-function displaySuccess(email) {
-  userEmail.textContent = email;
-  signupSection.classList.add('hidden');
-  successSection.hidden = false;
-  dismissBtn.focus();
+#### 4. Responsive Layout with Flexbox & Grid
+
+Desktop layout uses CSS Grid for two-column design:
+
+```css
+@media (min-width: 1024px) {
+  .container {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 40px;
+    align-items: center;
+  }
+  
+  .form-section {
+    max-width: 400px;
+  }
+  
+  .image-section {
+    display: flex;
+    justify-content: flex-end;
+  }
 }
 ```
+
+Mobile-first approach ensures single-column layout on smaller screens, progressively enhanced for larger viewports.
 
 ### Continued development
 
-Future enhancements could include:
+Things I want to explore next on this project:
 
-- ✨ Backend integration with email service API (Mailchimp, SendGrid)
-- 📊 Analytics tracking for form submissions
-- 🔒 Server-side validation and CSRF protection
-- 📝 Email confirmation template customization
-- 🌙 Dark mode support
-- 🔄 Animation refinements with GSAP
-- 📱 Progressive Web App (PWA) features
-- ♿ Additional accessibility improvements (WCAG AAA compliance)
+- Improve accessibility by adding aria-live announcements for the success message
+- Add subtle animations between the form and the success state
+- Persist the email address using localStorage so the form remembers the last entry
 
-## AI Collaboration
+### Useful resources
 
-### Tools Used
-- **GitHub Copilot** - AI-assisted code generation and suggestions
-- **Claude (Claude Haiku)** - Strategic planning, architecture decisions, and complex problem-solving
-
-### How AI Was Used
-
-1. **Planning & Architecture**
-   - Structured 8-step implementation plan
-   - Analyzed design files and created development strategy
-   - Identified responsive design requirements across breakpoints
-
-2. **Code Generation**
-   - HTML semantic structure scaffolding
-   - CSS layout patterns (Flexbox, Grid, media queries)
-   - JavaScript validation logic and event handling
-   - Accessibility markup (ARIA live regions, labels)
-
-3. **Debugging & Optimization**
-   - Fixed CSS compatibility issues (Safari vendor prefixes)
-   - Resolved responsive design conflicts
-   - Optimized performance and cleaned up unnecessary animations
-   - Validated code against error reports
-
-4. **Best Practices**
-   - Applied WCAG accessibility guidelines
-   - Implemented mobile-first responsive design
-   - Used semantic HTML and proper form handling
-   - Maintained clean, readable code structure
-
-### What Worked Well
-- ✅ Rapid iteration on design implementation
-- ✅ Systematic debugging of responsive issues
-- ✅ Accessibility compliance guidance
-- ✅ Code structure and organization suggestions
-- ✅ Multi-file coordination and consistency checks
-
-### What Didn't Work
-- ❌ Initial overly complex animations (simplified for production)
-- ❌ Some vendor prefix edge cases required manual review
-- ❌ Complex gradient specifications needed UX refinement
-
-### Outcome
-The AI collaboration significantly accelerated development while maintaining code quality and accessibility standards. The systematic approach resulted in a production-ready component with comprehensive testing and cross-browser compatibility.
+- [MDN Web Docs - Form validation](https://developer.mozilla.org/en-US/docs/Learn/Forms/Form_validation)
+- [Frontend Mentor community](https://www.frontendmentor.io/community)
+- [CSS-Tricks - A Complete Guide to Flexbox](https://css-tricks.com/snippets/css/a-guide-to-flexbox/)
 
 ## Author
 
-- **Name** - MUGISHO NTAHARA
-- **Website** - [Upwork Profile](https://www.upwork.com/freelancers/~01a2f97f4e3bb50a4c?companyReference=1864191587205410991&mp_source=share)
-- **Frontend Mentor** - [@Mugisho-dev-metasploit](https://www.frontendmentor.io/profile/Mugisho-dev-metasploit)
-- **GitHub** - [Mugisho-dev-metasploit](https://github.com/Mugisho-dev-metasploit)
-- **Repository** - [Newsletter Signup Form](https://github.com/FreeDev-Group/newsletter-signup-form-with-success-message-by-Dieu-merci)
+- Name: MUGISHO NTAHARA
+- Frontend Mentor: [@Mugisho-dev-metasploit](https://www.frontendmentor.io/profile/Mugisho-dev-metasploit)
+- GitHub: [Mugisho-dev-metasploit](https://github.com/Mugisho-dev-metasploit)
+- Upwork: [MUGISHO NTAHARA](https://www.upwork.com/freelancers/~01a2f97f4e3bb50a4c?companyReference=1864191587205410991&mp_source=share)
 
----
+## Acknowledgments
 
-**Challenge by** [Frontend Mentor](https://www.frontendmentor.io?ref=challenge)  
-**Coded by** [MUGISHO NTAHARA](https://github.com/Mugisho-dev-metasploit)
+Thanks to Frontend Mentor for the challenge and to the community for inspiration and support.
