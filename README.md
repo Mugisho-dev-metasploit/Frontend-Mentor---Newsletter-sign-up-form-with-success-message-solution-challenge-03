@@ -38,8 +38,8 @@ Users should be able to:
 
 ### Links
 
-- Solution URL: https://github.com/FreeDev-Group/newsletter-signup-form-with-success-message-by-Dieu-merci
-- Live Site URL: https://freedev-group.github.io/newsletter-signup-form-with-success-message-by-Dieu-merci/
+- Solution URL: https://github.com/Mugisho-dev-metasploit/Frontend-Mentor---Newsletter-sign-up-form-with-success-message-solution-challenge-03
+- Live Site URL: https://mugisho-dev-metasploit.github.io/Frontend-Mentor---Newsletter-sign-up-form-with-success-message-solution-challenge-03/
 
 ## My process
 
