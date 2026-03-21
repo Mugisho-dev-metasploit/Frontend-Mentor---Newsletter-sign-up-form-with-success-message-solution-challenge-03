@@ -190,3 +190,4 @@ Things I want to explore next on this project:
 ## Acknowledgments
 
 Thanks to Frontend Mentor for the challenge and to the community for inspiration and support.
+ 
